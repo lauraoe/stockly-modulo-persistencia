@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>co.sena.stockly</groupId>
+    <artifactId>stockly-modulo-persistencia</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+
+    <name>Stockly - Modulo de Persistencia JDBC</name>
+    <description>
+        Modulo de codificacion del proyecto Stockly (sistema de gestion de
+        inventarios para tienda de ropa). Implementa el acceso a datos por
+        medio de JDBC contra MySQL, con operaciones CRUD (insercion,
+        consulta, actualizacion y eliminacion) para las entidades
+        principales del modelo relacional: categorias, proveedores,
+        productos y variantes de producto.
+
+        Evidencia: GA6-220501096 - Codificacion del modulo del proyecto
+        con conexion a base de datos por medio de JDBC.
+    </description>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <mysql.connector.version>8.4.0</mysql.connector.version>
+    </properties>
+
+    <dependencies>
+        <!-- Driver JDBC oficial de MySQL -->
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>${mysql.connector.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>stockly-modulo-persistencia</finalName>
+        <plugins>
+            <!-- Genera un jar ejecutable con todas las dependencias incluidas -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.7.1</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>co.sena.stockly.app.StocklyConsolaApp</mainClass>
+                        </manifest>
+                    </archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
